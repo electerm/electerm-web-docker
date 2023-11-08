@@ -1,0 +1,29 @@
+# Ignore version control system directories
+.git
+.svn
+
+# Ignore Node.js modules
+node_modules
+
+# Ignore log files and temporary files
+*.log
+*.tmp
+
+# Ignore build artifacts and intermediate files
+build/
+dist/
+*.o
+*.obj
+
+# Ignore test and documentation files
+test/
+doc/
+
+# Ignore editor and IDE files
+.vscode/
+.idea/
+
+# Ignore configuration files with sensitive information
+.env
+.pem
+/*.sh

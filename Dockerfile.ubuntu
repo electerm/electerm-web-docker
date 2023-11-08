@@ -1,0 +1,39 @@
+# Dockerfile.ubuntu
+# Start from the official Ubuntu-based node.js Docker image
+FROM node:18
+ARG BUILD_DATE
+LABEL build-date=$BUILD_DATE
+LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
+LABEL description="This is Docker image for electerm-web"
+LABEL url="https://github.com/electerm/electerm-web-docker"
+LABEL vendor="electerm"
+LABEL version="1.0.0"
+
+# Install the build tools necessary for node-gyp
+RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++
+# Create the electerm user and group
+RUN groupadd -r electerm && useradd -r -g electerm -d /home/electerm -s /bin/bash electerm
+RUN mkdir /home/electerm
+# Set the ownership and permissions of the home directory
+RUN chown -R electerm:electerm /home/electerm && chmod 755 /home/electerm
+USER electerm
+# RUN chown -R electerm:electerm /home/electerm
+WORKDIR /app
+RUN chown -R electerm:electerm /app
+# Set the working directory in the Docker container
+
+RUN git clone --depth 1 https://github.com/electerm/electerm-web.git
+RUN cd electerm-web
+WORKDIR /app/electerm-web
+RUN npm install
+RUN npm run build
+RUN cp .sample.env .env
+
+USER electerm
+WORKDIR /app/electerm-web
+
+# Set the environment variable
+ENV NODE_ENV=production
+
+# Run your application
+CMD ["node", "./src/app/app.js"]
