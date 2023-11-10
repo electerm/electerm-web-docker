@@ -14,7 +14,7 @@ docker image of [electerm-web](https://github.com/electerm/electerm-web)
 # SERVER_SECRET, SERVER_PASS, ENABLE_AUTH are optional,
 # when ENABLE_AUTH enabled, would require login with SERVER_PASS when visit
 # SERVER_SECRET is used to encrypt data, if not set, would use default value
-# Should change some_server_secret to some random secret string, SERVER_SECRET
+# Should change some_server_secret to some complicated secret string
 
 docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
