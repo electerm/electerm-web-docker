@@ -11,12 +11,18 @@ docker image of [electerm-web](https://github.com/electerm/electerm-web)
 # for Linux OS modify $(pwd)/electerm-web-data to "/home/<your-user-name>/.config/electerm"
 # for Windows OS modify $(pwd)/electerm-web-data to "C:\\Users\\<your-user-name>\\AppData\\Roaming\\electerm"
 
-# change some_server_secret to some random secret string
+# SERVER_SECRET, SERVER_PASS, ENABLE_AUTH are optional,
+# when ENABLE_AUTH enabled, would require login with SERVER_PASS when visit
+# SERVER_SECRET is used to encrypt data, if not set, would use default value
+# Should change some_server_secret to some random secret string, SERVER_SECRET
+
 docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
-  -e "SERVER_SECRET=some_server_secret" \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
   -e "SERVER=http://127.0.0.1:8082" \
+# -e "SERVER_SECRET=some_server_secret" \
+# -e "SERVER_PASS=password_to_login" \
+# -e "ENABLE_AUTH=1" \  
   -p 8082:5577 \
   zxdong262/electerm-web
 ```
