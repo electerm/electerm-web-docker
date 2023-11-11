@@ -29,7 +29,7 @@ docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
 
 Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser,
 
-***should only be used in local machine, should not be given accessed from internet for safety reason.***
+***Should only be used in local machine, should not be given access from internet for safety reason.***
 
 ## License
 
