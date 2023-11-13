@@ -1,6 +1,5 @@
-# Dockerfile.ubuntu
-# Start from the official Ubuntu-based node.js Docker image
-FROM node:18
+# Dockerfile.alpine
+FROM node:18-alpine
 ARG BUILD_DATE
 LABEL build-date=$BUILD_DATE
 LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
@@ -10,17 +9,14 @@ LABEL vendor="electerm"
 LABEL version="2.34.58"
 
 # Install the build tools necessary for node-gyp
-RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++ \
-# Create the electerm user and group
-&& groupadd -r electerm && useradd -r -g electerm -d /home/electerm -s /bin/bash electerm \
-&& mkdir /home/electerm \
-# Set the ownership and permissions of the home directory
+RUN apk update && apk add --no-cache --virtual /root/.gyp git python3 make g++ \
+&& addgroup -S electerm \
+&& adduser -S electerm -G electerm -h /home/electerm -s /bin/bash \
 && chown -R electerm:electerm /home/electerm && chmod 755 /home/electerm
 USER electerm
 # RUN chown -R electerm:electerm /home/electerm
 WORKDIR /app
 RUN chown -R electerm:electerm /app \
-# Set the working directory in the Docker container
 && git clone --depth 1 https://github.com/electerm/electerm-web.git
 WORKDIR /app/electerm-web
 RUN npm un @playwright/test chai playwright \
@@ -31,8 +27,7 @@ RUN npm un @playwright/test chai playwright \
 && npm cache clean --force
 
 USER root
-RUN apt-get remove -y git python-is-python3 make build-essential g++
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apk del /root/.gyp
 
 USER electerm
 WORKDIR /app/electerm-web
