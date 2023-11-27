@@ -31,6 +31,10 @@ Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser,
 
 ***Should only be used in local machine, should not be given access from internet for safety reason.***
 
+## Docker hub url
+
+https://hub.docker.com/repository/docker/zxdong262/electerm-web
+
 ## License
 
 MIT
