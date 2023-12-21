@@ -6,7 +6,7 @@ LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="2.37.68"
+LABEL version="2.37.80"
 
 # Install the build tools necessary for node-gyp
 RUN apk update && apk add --no-cache --virtual /root/.gyp git python3 make g++ \
