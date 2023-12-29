@@ -29,7 +29,7 @@ docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
 
 Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser,
 
-***Should only be used in local machine, should not be given access from internet for safety reason.***
+If you want to use it from internet, should bind server like `"SERVER=http://your.domain"` or `"SERVER=http://your.ip:port"`
 
 ## Docker hub url
 
