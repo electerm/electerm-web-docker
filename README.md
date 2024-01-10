@@ -31,6 +31,8 @@ Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser,
 
 If you want to use it from internet, should bind server like `"SERVER=http://your.domain"` or `"SERVER=http://your.ip:port"`
 
+Check [examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf) [examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)  for domain binding nginx conf example.
+
 ## Docker hub url
 
 https://hub.docker.com/repository/docker/zxdong262/electerm-web
