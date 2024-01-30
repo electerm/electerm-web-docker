@@ -7,7 +7,7 @@ LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="2.38.8"
+LABEL version="2.38.9"
 
 # Install the build tools necessary for node-gyp
 RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++ \
@@ -29,7 +29,8 @@ RUN npm config set registry https://registry.npmmirror.com \
 && npm run build \
 && cp .sample.env .env \
 && npm prune --production \
-&& npm cache clean --force
+&& npm cache clean --force \
+&& npm config delete registry
 
 USER root
 RUN apt-get remove -y git python-is-python3 make build-essential g++
