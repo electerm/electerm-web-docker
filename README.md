@@ -1,3 +1,5 @@
+[中文](README_cn.md)
+
 # electerm-web-docker
 
 docker image of [electerm-web](https://github.com/electerm/electerm-web)
