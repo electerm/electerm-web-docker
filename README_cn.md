@@ -31,7 +31,7 @@ docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
 
 然后在浏览器中访问[http://127.0.0.1:8082](http://127.0.0.1:8082)，
 
-如果你想从互联网访问，应该绑定服务器，如`"SERVER=http://your.domain"`或`"SERVER=http://your.ip:port"`
+如果你想从非本机访问，应该绑定服务器，如`"SERVER=http://your.domain"`或`"SERVER=http://your.ip:port"`
 
 查看[examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf)和[examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)以获取域名绑定nginx配置示例。
 
