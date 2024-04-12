@@ -61,7 +61,7 @@ jobs:
         tags: adockero/electerm-web
         # Path to the Dockerfile (Default is '{path}/Dockerfile')
         context: ./
-        file: "./Dockerfile"
+        file: "./Dockerfile.alpine"
         # Always attempt to pull a newer version of the image
         pull: true
         push: true
