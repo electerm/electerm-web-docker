@@ -8,26 +8,28 @@ LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
 LABEL version="2.38.65"
 
-# Install the build tools necessary for node-gyp
-RUN apk update && apk add --no-cache --virtual /root/.gyp git python3 make g++ \
-&& addgroup -S electerm \
-&& adduser -S electerm -G electerm -h /home/electerm -s /bin/bash \
-&& chown -R electerm:electerm /home/electerm && chmod 755 /home/electerm
-USER electerm
-# RUN chown -R electerm:electerm /home/electerm
 WORKDIR /app
-RUN chown -R electerm:electerm /app \
-&& git clone --depth 1 https://github.com/electerm/electerm-web.git
-WORKDIR /app/electerm-web
-RUN npm un @playwright/test chai playwright \
-&& npm i \
-&& npm run build \
-&& cp .sample.env .env \
-&& npm prune --production \
-&& npm cache clean --force
 
-USER root
-RUN apk del /root/.gyp
+RUN addgroup -S electerm \
+    && adduser -S electerm -G electerm -h /home/electerm -s /bin/bash \
+    && chown -R electerm:electerm /home/electerm && chmod 755 /home/electerm \
+    && mkdir -p /app && chown -R electerm:electerm /app
+
+
+# Install the build tools necessary for node-gyp
+RUN apk update && apk add --no-cache --virtual /root/.gyp python3 git make g++ \
+    && cd /app \
+    && git clone --depth 1 https://github.com/electerm/electerm-web.git \
+    && cd electerm-web \
+    && npm un @playwright/test chai playwright \
+    && npm i \
+    && npm run build \
+    && cp .sample.env .env \
+    && npm prune --production \
+    && npm cache clean --force \
+    && apk del /root/.gyp \
+    && chown -R electerm:electerm /app/electerm-web
+
 
 USER electerm
 WORKDIR /app/electerm-web
