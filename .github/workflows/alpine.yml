@@ -2,9 +2,9 @@ name: 构建和提交docker
 
 on:
   push:
-    branches: [main]
+    branches: [build]
     paths: 
-      - "./**"
+      - "./Dockerfile.alpine"
       - ".github/workflows/alpine.yml"
       - "!**.md"
 
