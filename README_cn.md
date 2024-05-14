@@ -7,7 +7,6 @@ docker镜像的[electerm-web](https://github.com/electerm/electerm-web)
 ## 使用
 
 ```sh
-docker pull zxdong262/electerm-web
 # 将$(pwd)/electerm-web-data改为你想存储数据的文件夹
 # 如果想使用和桌面electerm相同的数据
 # 对于Mac OS，将$(pwd)/electerm-web-data改为"/Users/<你的用户名>/Library/Application Support/electerm"
