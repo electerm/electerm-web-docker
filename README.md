@@ -7,6 +7,7 @@ docker image of [electerm-web](https://github.com/electerm/electerm-web)
 ## Use
 
 ```sh
+docker pull zxdong262/electerm-web
 # change $(pwd)/data to any folder you want to store data
 # to use same data as desktop electerm
 # for Mac OS modify $(pwd)/electerm-web-data to "/Users/<your-user-name>/Library/Application Support/electerm"
