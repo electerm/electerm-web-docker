@@ -131,3 +131,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 /data
+/temp

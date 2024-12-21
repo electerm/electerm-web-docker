@@ -27,3 +27,6 @@ doc/
 .env
 .pem
 /*.sh
+/temp
+/data
+.github

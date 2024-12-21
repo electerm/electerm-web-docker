@@ -1,35 +1,40 @@
-# Dockerfile.alpine
-FROM node:18-alpine
+FROM node:18-alpine3.21
 ARG BUILD_DATE
 LABEL build-date=$BUILD_DATE
 LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="2.51.3"
+LABEL version="2.51.4"
 
 WORKDIR /app
 
-RUN addgroup -S electerm \
-    && adduser -S electerm -G electerm -h /home/electerm -s /bin/bash \
-    && chown -R electerm:electerm /home/electerm && chmod 755 /home/electerm \
-    && mkdir -p /app && chown -R electerm:electerm /app
+# Create user and set up directories
+RUN addgroup -S electerm && \
+    adduser -S -G electerm -h /home/electerm -s /bin/sh electerm && \
+    mkdir -p /home/electerm /app && \
+    chown -R electerm:electerm /home/electerm /app && \
+    chmod 755 /home/electerm
 
-
-# Install the build tools necessary for node-gyp
-RUN apk update && apk add --no-cache --virtual /root/.gyp python3 git make g++ \
-    && cd /app \
-    && git clone --depth 1 https://github.com/electerm/electerm-web.git \
-    && cd electerm-web \
-    && npm un @playwright/test chai playwright \
-    && npm i \
-    && npm run build \
-    && cp .sample.env .env \
-    && npm prune --production \
-    && npm cache clean --force \
-    && apk del /root/.gyp \
-    && chown -R electerm:electerm /app/electerm-web
-
+# Install build dependencies and build application
+RUN apk update && apk add --no-cache \
+    python3 \
+    git \
+    make \
+    g++ \
+    build-base && \
+    cd /app && \
+    git clone --depth 1 https://github.com/electerm/electerm-web.git && \
+    cd electerm-web && \
+    npm un @playwright/test chai playwright && \
+    npm i && \
+    npm run build && \
+    cp .sample.env .env && \
+    npm prune --production && \
+    npm cache clean --force && \
+    apk del build-base make g++ python3 git && \
+    rm -rf /var/cache/apk/* && \
+    chown -R electerm:electerm /app/electerm-web
 
 USER electerm
 WORKDIR /app/electerm-web
