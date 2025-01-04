@@ -7,7 +7,7 @@ LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="2.51.8"
+LABEL version="2.51.18"
 
 # Install the build tools necessary for node-gyp
 RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++ \
@@ -23,8 +23,7 @@ RUN chown -R electerm:electerm /app \
 # Set the working directory in the Docker container
 && git clone --depth 1 https://github.com/electerm/electerm-web.git
 WORKDIR /app/electerm-web
-RUN npm uninstall @playwright/test chai playwright \
-&& npm i \
+RUN npm i \
 && npm run build \
 && cp .sample.env .env \
 && npm prune --production \

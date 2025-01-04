@@ -16,7 +16,7 @@ docker buildx build \
 docker buildx rm multi-arch-builder
 
 # Tag the latest release for all architectures
-VERSION=$(date +"%Y%m%d%H%M%S")  # Or use your versioning scheme
+VERSION=2.51.18
 docker buildx imagetools create \
   --tag zxdong262/electerm-web:$VERSION \
   zxdong262/electerm-web:latest
