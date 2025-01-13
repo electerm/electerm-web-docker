@@ -1,13 +1,13 @@
 # Dockerfile.ubuntu
 # Start from the official Ubuntu-based node.js Docker image
-FROM node:18.20.4
+FROM node:20
 ARG BUILD_DATE
 LABEL build-date=$BUILD_DATE
 LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="2.51.18"
+LABEL version="2.60.6"
 
 # Install the build tools necessary for node-gyp
 RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++ \
@@ -31,8 +31,7 @@ RUN npm i \
 # && npm config delete registry
 
 USER root
-RUN apt-get remove -y git python-is-python3 make build-essential g++
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get remove -y git python-is-python3 make build-essential g++ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER electerm
 WORKDIR /app/electerm-web
