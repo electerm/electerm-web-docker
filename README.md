@@ -21,7 +21,6 @@ docker image of [electerm-web](https://github.com/electerm/electerm-web)
 docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
-  -e "SERVER=http://127.0.0.1:8082" \
 # -e "SERVER_SECRET=some_server_secret" \
 # -e "SERVER_PASS=password_to_login" \
 # -e "ENABLE_AUTH=1" \  
@@ -30,8 +29,6 @@ docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
 ```
 
 Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser,
-
-If you want to use it from any other device, should bind server like `"SERVER=http://your.domain"` or `"SERVER=http://your.ip:port"`
 
 Check [examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf) [examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)  for domain binding nginx conf example.
 
