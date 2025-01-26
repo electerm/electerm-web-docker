@@ -26,9 +26,16 @@ docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
 # -e "ENABLE_AUTH=1" \  
   -p 8082:5577 \
   zxdong262/electerm-web
+
 ```
-##  Docker Compose example
-```
+
+Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser,
+
+Check [examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf) [examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)  for domain binding nginx conf example.
+
+## Docker Compose example
+
+```docker
 version: '3.8'
 services:
   electerm-web:
@@ -45,20 +52,15 @@ services:
     ports:
       - "8082:5577"
     init: true
-    
-    
-    
+```
 
+```sh
 # You should change some_server_secret to a complex key string.
 # China users use it, and other defaults can be used.    Specifies the mirror used by the service. Https://docker.xuanyuan.me/zxdong262/electerm-web:latest is used here. You can't find it yourself. 
 # Mount the/share/nas973/electerm-web-data directory of the host to the /home/electerm/data directory of the container. Remember to set the directory yourself or change it to your own directory.
 # Set the value of the environment variable HOST to 0.0.0.0, indicating that the service will listen to all network interfaces.
 # Map the 8082 port of the host to the 5577 port of the container. In this way, the outside can access the 5577 port inside the container through the 8082 port of the host.
 ```
-
-Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser,
-
-Check [examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf) [examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)  for domain binding nginx conf example.
 
 ## Docker hub url
 

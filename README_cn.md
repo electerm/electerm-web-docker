@@ -27,8 +27,14 @@ docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
   -p 8082:5577 \
   zxdong262/electerm-web
 ```
-##Docker Compose
-```
+
+然后在浏览器中访问[http://127.0.0.1:8082](http://127.0.0.1:8082)，
+
+查看[examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf)和[examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)以获取域名绑定nginx配置示例。
+
+## Docker Compose例子
+
+```docker
 version: '3.8'
 services:
   electerm-web:
@@ -46,9 +52,14 @@ services:
       - "8082:5577"
     init: true
 ```
-然后在浏览器中访问[http://127.0.0.1:8082](http://127.0.0.1:8082)，
 
-查看[examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf)和[examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)以获取域名绑定nginx配置示例。
+```sh
+# 你应该将 some_server_secret 更改为一个复杂的密钥字符串
+# 中国用户使用它，其他默认值可以使用。这里指定了服务使用的镜像，使用了 https://docker.xuanyuan.me/zxdong262/electerm-web:latest，你可能无法自行找到
+# 将主机的 /share/NAS973/electerm-web-data 目录挂载到容器的 /home/electerm/data 目录，记得自行设置目录或更改为你自己的目录
+# 设置环境变量 HOST 的值为 0.0.0.0，表示服务将监听所有网络接口
+# 将主机的 8082 端口映射到容器的 5577 端口，这样外部可以通过主机的 8082 端口访问容器内的 5577 端口
+```
 
 ## Docker hub链接
 
