@@ -27,7 +27,25 @@ docker run --init -v $(pwd)/electerm-web-data:/home/electerm/data \
   -p 8082:5577 \
   zxdong262/electerm-web
 ```
-
+##Docker Compose
+```
+version: '3.8'
+services:
+  electerm-web:
+    image: https://docker.xuanyuan.me/zxdong262/electerm-web:latest
+    container_name: electerm-web
+    volumes:
+      - /share/NAS973/electerm-web-data:/home/electerm/data
+    environment:
+      - DB_PATH=/home/electerm/data
+      - HOST=0.0.0.0
+      - SERVER_SECRET=some_server_secret
+      - SERVER_PASS=password_to_login
+      - ENABLE_AUTH=1
+    ports:
+      - "8082:5577"
+    init: true
+```
 然后在浏览器中访问[http://127.0.0.1:8082](http://127.0.0.1:8082)，
 
 查看[examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf)和[examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)以获取域名绑定nginx配置示例。
