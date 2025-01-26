@@ -55,11 +55,11 @@ services:
 ```
 
 ```sh
-# You should change some_server_secret to a complex key string.
-# China users use it, and other defaults can be used.    Specifies the mirror used by the service. Https://docker.xuanyuan.me/zxdong262/electerm-web:latest is used here. You can't find it yourself. 
-# Mount the/share/nas973/electerm-web-data directory of the host to the /home/electerm/data directory of the container. Remember to set the directory yourself or change it to your own directory.
-# Set the value of the environment variable HOST to 0.0.0.0, indicating that the service will listen to all network interfaces.
-# Map the 8082 port of the host to the 5577 port of the container. In this way, the outside can access the 5577 port inside the container through the 8082 port of the host.
+# Replace some_server_secret with a strong cryptographic key
+# For users in China: Use the specified mirror at https://docker.xuanyuan.me/zxdong262/electerm-web:latest. Default settings apply for users in other regions.
+# Mount the host directory /share/nas973/electerm-web-data to /home/electerm/data in the container. Configure this path according to your storage requirements.
+# Setting HOST=0.0.0.0 configures the service to listen on all available network interfaces
+# Port mapping: Host port 8082 -> Container port 5577, enabling external access to the containerized service
 ```
 
 ## Docker hub url

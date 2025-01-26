@@ -54,11 +54,11 @@ services:
 ```
 
 ```sh
-# 你应该将 some_server_secret 更改为一个复杂的密钥字符串
-# 中国用户使用它，其他默认值可以使用。这里指定了服务使用的镜像，使用了 https://docker.xuanyuan.me/zxdong262/electerm-web:latest，你可能无法自行找到
-# 将主机的 /share/NAS973/electerm-web-data 目录挂载到容器的 /home/electerm/data 目录，记得自行设置目录或更改为你自己的目录
-# 设置环境变量 HOST 的值为 0.0.0.0，表示服务将监听所有网络接口
-# 将主机的 8082 端口映射到容器的 5577 端口，这样外部可以通过主机的 8082 端口访问容器内的 5577 端口
+# 将 some_server_secret 替换为一个强加密密钥
+# 中国用户请使用指定镜像 https://docker.xuanyuan.me/zxdong262/electerm-web:latest，其他地区用户可使用默认设置
+# 将主机目录 /share/nas973/electerm-web-data 挂载到容器的 /home/electerm/data，请根据存储需求配置此路径
+# 设置 HOST=0.0.0.0 使服务监听所有可用网络接口
+# 端口映射：主机端口 8082 映射到容器端口 5577，实现对容器化服务的外部访问
 ```
 
 ## Docker hub链接
