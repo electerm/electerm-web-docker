@@ -5,7 +5,7 @@ LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="2.60.56"
+LABEL version="2.70.6"
 
 WORKDIR /app
 
