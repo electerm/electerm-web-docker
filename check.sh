@@ -1,7 +1,7 @@
 docker run -it zxdong262/electerm-web sh
 docker push zxdong262/electerm-web
-docker tag zxdong262/electerm-web:latest zxdong262/electerm-web:2.72.36
-docker push zxdong262/electerm-web:2.72.36
+docker tag zxdong262/electerm-web:latest zxdong262/electerm-web:2.72.48
+docker push zxdong262/electerm-web:2.72.48
 docker pull zxdong262/electerm-web:latest
 
 docker run --init \
@@ -11,3 +11,11 @@ docker run --init \
   -e "HOST=0.0.0.0" \
   -p 8082:5577 \
   zxdong262/electerm-web
+
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+  -t zxdong262/electerm-web:latest \
+  -f Dockerfile.ubuntu \
+  --output "type=image,push=false" \
+  .
