@@ -28,4 +28,4 @@ else
 fi
 
 # Clean up the builder
-# docker buildx rm multi-arch-builder
+docker buildx rm multi-arch-builder
