@@ -4,7 +4,8 @@
 # This triggers the GitHub Actions workflow for building Docker images
 
 set -e  # Exit on any error
-
+cd `dirname $0`
+cd ..
 # Switch to main and get latest
 git checkout main
 git pull origin main
