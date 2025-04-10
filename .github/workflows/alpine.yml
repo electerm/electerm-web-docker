@@ -2,7 +2,7 @@ name: 构建和提交docker
 
 on:
   push:
-    branches: [build]
+    branches: [build-al]
     paths: 
       - "./Dockerfile.alpine"
       - ".github/workflows/alpine.yml"
@@ -13,7 +13,7 @@ jobs:
   # 并发构建
   setup-build-publish-v3:
     runs-on: ubuntu-latest
-    name: 构建和推送docker镜像v3
+    name: push/build docker images
     steps:
     
     - name: 更新代码
