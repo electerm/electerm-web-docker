@@ -42,7 +42,7 @@ services:
     image: https://docker.xuanyuan.me/zxdong262/electerm-web:latest
     container_name: electerm-web
     volumes:
-      - /your-local-path-with/proper-permission/try-give-777-permission/if-can-not-create-file:/home/electerm/data
+      - /your/local/folder:/home/electerm/data
     environment:
       - DB_PATH=/home/electerm/data
       - HOST=0.0.0.0

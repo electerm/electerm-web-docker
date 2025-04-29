@@ -1,7 +1,6 @@
 
 
 docker run --init \
-  --user "$(id -u):$(id -g)" \
   -v "/Users/zxd/dev/dev1":/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
