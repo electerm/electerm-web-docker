@@ -1,7 +1,8 @@
 
 
 docker run --init \
-  -v "/Users/zxd/dev/electerm-web/data":/home/electerm/data \
+  --user "$(id -u):$(id -g)" \
+  -v "/Users/zxd/dev/dev1":/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
   -p 8082:5577 \
