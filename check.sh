@@ -1,7 +1,7 @@
 docker run -it zxdong262/electerm-web sh
 docker push zxdong262/electerm-web
-docker tag zxdong262/electerm-web:latest zxdong262/electerm-web:2.90.6
-docker push zxdong262/electerm-web:2.90.6
+docker tag zxdong262/electerm-web:latest zxdong262/electerm-web:2.90.8
+docker push zxdong262/electerm-web:2.90.8
 docker pull zxdong262/electerm-web:latest
 
 docker run --init \
