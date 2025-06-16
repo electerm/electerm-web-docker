@@ -17,7 +17,7 @@ if [ $? -eq 0 ]; then
   echo "Build successful. Proceeding with tagging."
 
   # Tag the latest release for all architectures
-  VERSION=2.91.8
+  VERSION=2.91.16
   docker buildx imagetools create \
     --tag zxdong262/electerm-web:$VERSION \
     zxdong262/electerm-web:latest
