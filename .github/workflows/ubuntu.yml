@@ -3,27 +3,12 @@ name: Build and Publish Docker Image
 on:
   push:
     branches: [ build ]
-  workflow_dispatch:
 
 jobs:
-  check-skip-ci:
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.check.outputs.should_skip }}
-    steps:
-      - id: check
-        name: Check if [skip ci] is in commit message
-        run: |
-          if echo "${{ github.event.head_commit.message || '' }}" | grep -i '\[skip ci\]'; then
-            echo "should_skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "should_skip=false" >> $GITHUB_OUTPUT
 
   build-and-push:
     runs-on: ubuntu-latest
     environment: build
-    needs: check-skip-ci
-    if: needs.check-skip-ci.outputs.should_skip != 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
