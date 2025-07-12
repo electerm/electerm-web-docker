@@ -7,7 +7,7 @@ LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="2.100.18"
+LABEL version="2.100.19"
 
 # Install the build tools necessary for node-gyp and additional tools
 RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++ curl \
@@ -20,7 +20,12 @@ RUN apt-get update && apt-get install -y git python-is-python3 make build-essent
 # Install fixuid
 RUN USER=electerm && \
     GROUP=electerm && \
-    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5.1/fixuid-0.5.1-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+    ARCH=$(uname -m) && \
+    if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then \
+        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.6.0/fixuid-0.6.0-linux-arm64.tar.gz | tar -C /usr/local/bin -xzf -; \
+    else \
+        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.6.0/fixuid-0.6.0-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf -; \
+    fi && \
     chown root:root /usr/local/bin/fixuid && \
     chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \
