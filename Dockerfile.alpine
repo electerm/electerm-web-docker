@@ -1,4 +1,6 @@
-FROM node:18-alpine3.21
+# Dockerfile.alpine
+# Start from the official Alpine-based node.js Docker image
+FROM node:20-alpine
 ARG BUILD_DATE
 LABEL build-date=$BUILD_DATE
 LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
@@ -7,40 +9,59 @@ LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
 LABEL version="2.100.30"
 
+# Install the build tools necessary for node-gyp and additional tools
+RUN apk update && apk add --no-cache git python3 make build-base g++ curl \
+# Create the electerm user and group
+&& addgroup -r electerm && adduser -r -G electerm -h /home/electerm -s /bin/sh electerm \
+&& mkdir /home/electerm \
+# Set the ownership and permissions of the home directory
+&& chown -R electerm:electerm /home/electerm && chmod 755 /home/electerm
+
+# Install fixuid
+RUN USER=electerm && \
+    GROUP=electerm && \
+    ARCH=$(uname -m) && \
+    if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then \
+        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.6.0/fixuid-0.6.0-linux-arm64.tar.gz | tar -C /usr/local/bin -xzf -; \
+    else \
+        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.6.0/fixuid-0.6.0-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf -; \
+    fi && \
+    chown root:root /usr/local/bin/fixuid && \
+    chmod 4755 /usr/local/bin/fixuid && \
+    mkdir -p /etc/fixuid && \
+    printf "user: $USER\ngroup: $GROUP\npaths:\n  - /home/electerm\n  - /app\n" > /etc/fixuid/config.yml
+
 WORKDIR /app
+RUN chown -R electerm:electerm /app
 
-# Create user and set up directories
-RUN addgroup -S electerm && \
-    adduser -S -G electerm -h /home/electerm -s /bin/sh electerm && \
-    mkdir -p /home/electerm /app && \
-    chown -R electerm:electerm /home/electerm /app && \
-    chmod 755 /home/electerm
+# Switch to electerm user for building the application
+USER electerm:electerm
 
-# Install build dependencies and build application
-RUN apk update && apk add --no-cache \
-    python3 \
-    git \
-    make \
-    g++ \
-    build-base && \
-    cd /app && \
-    git clone --depth 1 https://github.com/electerm/electerm-web.git && \
-    cd electerm-web && \
-    npm un @playwright/test chai playwright && \
-    npm i && \
-    npm run build && \
-    cp .sample.env .env && \
-    npm prune --production && \
-    npm cache clean --force && \
-    apk del build-base make g++ python3 git && \
-    rm -rf /var/cache/apk/* && \
-    chown -R electerm:electerm /app/electerm-web
+# Clone and build the application
+RUN git clone --depth 1 https://github.com/electerm/electerm-web.git
+WORKDIR /app/electerm-web
+RUN npm i \
+&& npm run build \
+&& cp .sample.env .env \
+&& npm prune --production \
+&& npm cache clean --force
 
-USER electerm
+# Switch back to root for cleanup
+USER root
+RUN apk del git python3 make build-base g++ && rm -rf /var/cache/apk/*
+
+# Create the data directory with proper permissions
+RUN mkdir -p /home/electerm/data && \
+    chown -R electerm:electerm /home/electerm/data && \
+    chmod 755 /home/electerm/data
+
+# Switch back to electerm user
+USER electerm:electerm
 WORKDIR /app/electerm-web
 
 # Set the environment variable
 ENV NODE_ENV=production
 
-# Run your application
+# Use fixuid as the entrypoint
+ENTRYPOINT ["fixuid", "-q"]
 CMD ["node", "./src/app/app.js"]
