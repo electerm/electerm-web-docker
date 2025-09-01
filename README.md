@@ -57,7 +57,7 @@ services:
 ```sh
 # Replace some_server_secret with a strong cryptographic key
 # For users in China: Use the specified mirror at https://docker.xuanyuan.me/zxdong262/electerm-web:latest. Default settings apply for users in other regions.
-# Mount the host directory /your/local/folder to /home/electerm/data in the container. Configure this path according to your storage requirements.
+# Mount the host directory /your/local/folder to /home/electerm/data in the container. Configure this path according to your storage requirements, make sure current user have permission in /your/local/folder
 # Setting HOST=0.0.0.0 configures the service to listen on all available network interfaces
 # Port mapping: Host port 8082 -> Container port 5577, enabling external access to the containerized service
 ```
