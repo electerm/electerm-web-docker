@@ -56,7 +56,7 @@ services:
 ```sh
 # 将 some_server_secret 替换为一个强加密密钥
 # 中国用户请使用指定镜像 https://docker.xuanyuan.me/zxdong262/electerm-web:latest，其他地区用户可使用默认设置
-# 将主机目录 /share/nas973/electerm-web-data 挂载到容器的 /home/electerm/data，请根据存储需求配置此路径
+# 将主机目录 /your/local/folder 挂载到容器的 /home/electerm/data，请根据存储需求配置此路径
 # 设置 HOST=0.0.0.0 使服务监听所有可用网络接口
 # 端口映射：主机端口 8082 映射到容器端口 5577，实现对容器化服务的外部访问
 ```
