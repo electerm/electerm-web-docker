@@ -1,6 +1,6 @@
 # Dockerfile.alpine
 # Start from the official Alpine-based node.js Docker image
-FROM node:20-alpine
+FROM node:22-alpine
 ARG BUILD_DATE
 LABEL build-date=$BUILD_DATE
 LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
