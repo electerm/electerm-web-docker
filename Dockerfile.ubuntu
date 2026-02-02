@@ -7,7 +7,7 @@ LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="3.5.9"
+LABEL version="3.5.10"
 
 # Additional standard Docker labels
 LABEL org.opencontainers.image.title="electerm-web"
@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.description="Docker image for electerm-web - SSH/
 LABEL org.opencontainers.image.source="https://github.com/electerm/electerm-web-docker"
 LABEL org.opencontainers.image.url="https://github.com/electerm/electerm-web-docker"
 LABEL org.opencontainers.image.documentation="https://github.com/electerm/electerm-web-docker"
-LABEL org.opencontainers.image.version="3.5.9"
+LABEL org.opencontainers.image.version="3.5.10"
 LABEL org.opencontainers.image.created=$BUILD_DATE
 LABEL org.opencontainers.image.authors="ZHAO Xudong <zxdong@gmail.com>"
 LABEL org.opencontainers.image.vendor="electerm"
@@ -27,23 +27,8 @@ LABEL org.opencontainers.image.base.name="node:22"
 RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++ curl \
 # Create the electerm user and group
 && groupadd -r electerm && useradd -r -g electerm -d /home/electerm -s /bin/bash electerm \
-&& mkdir /home/electerm \
-# Set the ownership and permissions of the home directory
+&& mkdir -p /home/electerm \
 && chown -R electerm:electerm /home/electerm && chmod 755 /home/electerm
-
-# Install fixuid
-RUN USER=electerm && \
-    GROUP=electerm && \
-    ARCH=$(uname -m) && \
-    if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ]; then \
-        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.6.0/fixuid-0.6.0-linux-arm64.tar.gz | tar -C /usr/local/bin -xzf -; \
-    else \
-        curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.6.0/fixuid-0.6.0-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf -; \
-    fi && \
-    chown root:root /usr/local/bin/fixuid && \
-    chmod 4755 /usr/local/bin/fixuid && \
-    mkdir -p /etc/fixuid && \
-    printf "user: $USER\ngroup: $GROUP\npaths:\n  - /home/electerm\n  - /app\n" > /etc/fixuid/config.yml
 
 WORKDIR /app
 RUN chown -R electerm:electerm /app
@@ -60,23 +45,17 @@ RUN npm config set legacy-peer-deps true \
 && cp .sample.env .env \
 && npm prune --production \
 && npm cache clean --force
-
 # Switch back to root for cleanup
 USER root
 RUN apt-get remove -y git python-is-python3 make build-essential g++ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Create the data directory with proper permissions
-RUN mkdir -p /home/electerm/data && \
-    chown -R electerm:electerm /home/electerm/data && \
-    chmod 755 /home/electerm/data
-
-# Switch back to electerm user
-USER electerm:electerm
 WORKDIR /app/electerm-web
 
-# Set the environment variable
+# Set the environment variables
 ENV NODE_ENV=production
+# HOME points to data directory so logs/config are written to mounted volume
+ENV HOME=/home/electerm/data
 
-# Use fixuid as the entrypoint
-ENTRYPOINT ["fixuid", "-q"]
+# No USER directive - allow --user flag to set runtime user
+# This enables: docker run --user $(id -u):$(id -g) ...
 CMD ["node", "./src/app/app.js"]

@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  electerm-web:
+    image: zxdong262/electerm-web:latest
+    container_name: electerm-web
+    # Run as current user to avoid permission issues (like macOS Docker Desktop)
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      DB_PATH: /home/electerm/data
+      HOST: 0.0.0.0
+      # Optional authentication settings:
+      # SERVER_SECRET: some_server_secret
+      # SERVER_PASS: password_to_login
+      # ENABLE_AUTH: 1
+    
+    volumes:
+      - ./electerm-data:/home/electerm/data
+    
+    ports:
+      - "8082:5577"
+    
+    init: true
+    restart: unless-stopped
