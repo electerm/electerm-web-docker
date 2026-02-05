@@ -85,7 +85,7 @@ UID=$(id -u) GID=$(id -g) docker-compose up -d
 
 ## Docker hub链接
 
-https://hub.docker.com/repository/docker/zxdong262/electerm-web
+https://hub.docker.com/r/zxdong262/electerm-web
 
 ## 许可证
 
