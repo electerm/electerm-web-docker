@@ -7,7 +7,7 @@ LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="3.8.7"
+LABEL version="3.8.16"
 
 # Additional standard Docker labels
 LABEL org.opencontainers.image.title="electerm-web"
@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.description="Docker image for electerm-web - SSH/
 LABEL org.opencontainers.image.source="https://github.com/electerm/electerm-web-docker"
 LABEL org.opencontainers.image.url="https://github.com/electerm/electerm-web-docker"
 LABEL org.opencontainers.image.documentation="https://github.com/electerm/electerm-web-docker"
-LABEL org.opencontainers.image.version="3.8.7"
+LABEL org.opencontainers.image.version="3.8.16"
 LABEL org.opencontainers.image.created=$BUILD_DATE
 LABEL org.opencontainers.image.authors="ZHAO Xudong <zxdong@gmail.com>"
 LABEL org.opencontainers.image.vendor="electerm"
