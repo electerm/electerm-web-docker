@@ -1,13 +1,13 @@
 # Dockerfile.ubuntu
 # Start from the official Ubuntu-based node.js Docker image
-FROM node:2.
+FROM node:24
 ARG BUILD_DATE
 LABEL build-date=$BUILD_DATE
 LABEL maintainer="ZHAO Xudong <zxdong@gmail.com>"
 LABEL description="This is Docker image for electerm-web"
 LABEL url="https://github.com/electerm/electerm-web-docker"
 LABEL vendor="electerm"
-LABEL version="4.8.158"
+LABEL version="4.8.16"
 
 # Additional standard Docker labels
 LABEL org.opencontainers.image.title="electerm-web"
@@ -15,13 +15,13 @@ LABEL org.opencontainers.image.description="Docker image for electerm-web - SSH/
 LABEL org.opencontainers.image.source="https://github.com/electerm/electerm-web-docker"
 LABEL org.opencontainers.image.url="https://github.com/electerm/electerm-web-docker"
 LABEL org.opencontainers.image.documentation="https://github.com/electerm/electerm-web-docker"
-LABEL org.opencontainers.image.version="4.8.158"
+LABEL org.opencontainers.image.version="4.8.16"
 LABEL org.opencontainers.image.created=$BUILD_DATE
 LABEL org.opencontainers.image.authors="ZHAO Xudong <zxdong@gmail.com>"
 LABEL org.opencontainers.image.vendor="electerm"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.ref.name="electerm-web"
-LABEL org.opencontainers.image.base.name="node:22"
+LABEL org.opencontainers.image.base.name="node:24"
 
 # Install the build tools necessary for node-gyp and additional tools
 RUN apt-get update && apt-get install -y git python-is-python3 make build-essential g++ curl \
