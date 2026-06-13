@@ -11,7 +11,6 @@ docker镜像的[electerm-web](https://github.com/electerm/electerm-web)
 # 将 $(pwd)/electerm-web-data 改为你想存储数据的文件夹
 
 docker run --init \
-  --user "$(id -u):$(id -g)" \
   -v $(pwd)/electerm-web-data:/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
@@ -23,7 +22,6 @@ docker run --init \
 
 ```sh
 docker run --init \
-  --user "$(id -u):$(id -g)" \
   -v $(pwd)/electerm-web-data:/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
@@ -32,22 +30,6 @@ docker run --init \
   -e "ENABLE_AUTH=1" \
   -p 8082:5577 \
   zxdong262/electerm-web
-```
-
-### 使用和桌面electerm相同的数据
-
-```sh
-# macOS
-docker run --init --user "$(id -u):$(id -g)" \
-  -v "/Users/<你的用户名>/Library/Application Support/electerm":/home/electerm/data \
-  -e "DB_PATH=/home/electerm/data" -e "HOST=0.0.0.0" \
-  -p 8082:5577 zxdong262/electerm-web
-
-# Linux
-docker run --init --user "$(id -u):$(id -g)" \
-  -v "/home/<你的用户名>/.config/electerm":/home/electerm/data \
-  -e "DB_PATH=/home/electerm/data" -e "HOST=0.0.0.0" \
-  -p 8082:5577 zxdong262/electerm-web
 ```
 
 然后在浏览器中访问[http://127.0.0.1:8082](http://127.0.0.1:8082)。
@@ -62,7 +44,6 @@ services:
   electerm-web:
     image: zxdong262/electerm-web:latest
     container_name: electerm-web
-    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ./electerm-data:/home/electerm/data
     environment:

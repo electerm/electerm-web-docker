@@ -11,7 +11,6 @@ docker image of [electerm-web](https://github.com/electerm/electerm-web)
 # Change $(pwd)/electerm-web-data to your preferred data folder
 
 docker run --init \
-  --user "$(id -u):$(id -g)" \
   -v $(pwd)/electerm-web-data:/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
@@ -23,7 +22,6 @@ docker run --init \
 
 ```sh
 docker run --init \
-  --user "$(id -u):$(id -g)" \
   -v $(pwd)/electerm-web-data:/home/electerm/data \
   -e "DB_PATH=/home/electerm/data" \
   -e "HOST=0.0.0.0" \
@@ -32,22 +30,6 @@ docker run --init \
   -e "ENABLE_AUTH=1" \
   -p 8082:5577 \
   zxdong262/electerm-web
-```
-
-### Use same data as desktop electerm
-
-```sh
-# macOS
-docker run --init --user "$(id -u):$(id -g)" \
-  -v "/Users/<your-user-name>/Library/Application Support/electerm":/home/electerm/data \
-  -e "DB_PATH=/home/electerm/data" -e "HOST=0.0.0.0" \
-  -p 8082:5577 zxdong262/electerm-web
-
-# Linux
-docker run --init --user "$(id -u):$(id -g)" \
-  -v "/home/<your-user-name>/.config/electerm":/home/electerm/data \
-  -e "DB_PATH=/home/electerm/data" -e "HOST=0.0.0.0" \
-  -p 8082:5577 zxdong262/electerm-web
 ```
 
 Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser.
@@ -62,7 +44,6 @@ services:
   electerm-web:
     image: zxdong262/electerm-web:latest
     container_name: electerm-web
-    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ./electerm-data:/home/electerm/data
     environment:
