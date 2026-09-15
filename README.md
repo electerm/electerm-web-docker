@@ -14,7 +14,7 @@ docker image of [electerm-web](https://github.com/electerm/electerm-web)
 
 ## About electerm
 
-Besides the mainstream Windows / macOS / Linux / Android platforms, electerm also supports HarmonyOS and older systems such as Ubuntu 18, Windows 7, macOS 10+, as well as domestic Linux distributions like UOS, Kylin, and LoongArch (both old-world and new-world).
+Besides the mainstream Windows / macOS / Linux / Android platforms, electerm also supports HarmonyOS and older systems such as Ubuntu 18, Windows 7, macOS 10+, as well as domestic Linux distributions like UOS, Kylin, and LoongArch (both old-world and new-world), as well as RISC-V (riscv64) and PowerPC 64-bit little-endian (ppc64le) Linux.
 
 ## Use
 
