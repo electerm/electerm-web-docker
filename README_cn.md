@@ -14,7 +14,7 @@ docker镜像的[electerm-web](https://github.com/electerm/electerm-web)
 
 ## 关于 electerm
 
-除主流的 Windows / macOS / Linux / Android 外，electerm 还支持 HarmonyOS，以及较老的系统，如 Ubuntu 18、Windows 7、macOS 10+，以及 UOS、麒麟、龙架构（LoongArch，新旧世界）等国产 Linux 发行版。
+除主流的 Windows / macOS / Linux / Android 外，electerm 还支持 HarmonyOS，以及较老的系统，如 Ubuntu 18、Windows 7、macOS 10+，以及 UOS、麒麟、龙架构（LoongArch，新旧世界）等国产 Linux 发行版，同时还支持 RISC-V (riscv64) 与 PowerPC 64位小端 (ppc64le) Linux。
 
 ## 使用
 
