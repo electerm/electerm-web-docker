@@ -44,6 +44,24 @@ docker run --init \
   zxdong262/electerm-web
 ```
 
+### Serve under a sub-path (optional)
+
+`BASE_PATH` lets the app sit under a path such as `https://host/electerm/`, which is how you put it behind an existing nginx next to other apps. It is a runtime env var, so no rebuild is needed — just add it:
+
+```sh
+docker run --init \
+  -v $(pwd)/electerm-web-data:/home/electerm/data \
+  -e "DB_PATH=/home/electerm/data" \
+  -e "HOST=0.0.0.0" \
+  -e "BASE_PATH=/electerm" \
+  -p 8082:5577 \
+  zxdong262/electerm-web
+```
+
+The page then emits `/electerm/...` for stylesheets, scripts, api and the websocket url, and the server accepts both the prefixed and the plain path, so the proxy may forward either verbatim or with the prefix stripped. A resource mounted at the root (`GET /`) keeps working too. See [examples/nginx-subpath.conf](examples/nginx-subpath.conf).
+
+> Requires an image built from electerm-web 5.10.x or newer; older images ignore `BASE_PATH` and return 404 for the prefixed paths.
+
 Then visit [http://127.0.0.1:8082](http://127.0.0.1:8082) in browser.
 
 Check [examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf) [examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf) for domain binding nginx conf example.
@@ -61,6 +79,8 @@ services:
     environment:
       - DB_PATH=/home/electerm/data
       - HOST=0.0.0.0
+      # Serve under https://host/electerm/ (needs electerm-web 5.10.x+):
+      # - BASE_PATH=/electerm
       # Optional authentication:
       # - SERVER_SECRET=some_server_secret
       # - SERVER_PASS=password_to_login

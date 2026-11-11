@@ -44,6 +44,24 @@ docker run --init \
   zxdong262/electerm-web
 ```
 
+### 部署在子路径下（可选）
+
+`BASE_PATH` 用来把应用挂在 `https://host/electerm/` 这样的子路径上，方便和已有 nginx 上的其他站点共存。它是运行时环境变量，不用重新构建镜像，加上即可：
+
+```sh
+docker run --init \
+  -v $(pwd)/electerm-web-data:/home/electerm/data \
+  -e "DB_PATH=/home/electerm/data" \
+  -e "HOST=0.0.0.0" \
+  -e "BASE_PATH=/electerm" \
+  -p 8082:5577 \
+  zxdong262/electerm-web
+```
+
+此时页面输出的样式表、脚本、api 和 websocket 地址都会带上 `/electerm` 前缀；服务端同时接受带前缀和不带前缀的路径，所以 nginx 转发时剥不剥前缀都可以。挂在根路径的（`GET /`）也照旧可用。nginx 配置见 [examples/nginx-subpath.conf](examples/nginx-subpath.conf)。
+
+> 需要由 electerm-web 5.10.x 及以上版本构建的镜像；更早的镜像会忽略 `BASE_PATH`，带前缀的路径直接 404。
+
 然后在浏览器中访问[http://127.0.0.1:8082](http://127.0.0.1:8082)。
 
 查看[examples/nginx.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx.conf)和[examples/nginx-ssl.conf](https://github.com/electerm/electerm-web/blob/main/examples/nginx-ssl.conf)以获取域名绑定nginx配置示例。
@@ -61,6 +79,8 @@ services:
     environment:
       - DB_PATH=/home/electerm/data
       - HOST=0.0.0.0
+      # 部署在 https://host/electerm/ 子路径下（需要 electerm-web 5.10.x+）:
+      # - BASE_PATH=/electerm
       # 可选认证:
       # - SERVER_SECRET=some_server_secret
       # - SERVER_PASS=password_to_login

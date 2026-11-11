@@ -7,6 +7,8 @@ services:
     environment:
       DB_PATH: /home/electerm/data
       HOST: 0.0.0.0
+      # Serve under https://host/electerm/ (needs electerm-web 5.10.x+):
+      # BASE_PATH: /electerm
       # Optional authentication settings:
       # SERVER_SECRET: some_server_secret
       # SERVER_PASS: password_to_login
