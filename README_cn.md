@@ -115,6 +115,7 @@ https://hub.docker.com/r/zxdong262/electerm-web
 - [electerm deb repo](https://repos.electerm.org/deb)：Debian 软件源
 - [electerm rpm repo](https://repos.electerm.org/rpm)：RPM 软件源
 - [electerm-locales](https://github.com/electerm/electerm-locales)：多语言/国际化文件
+- [Google Play](https://play.google.com/store/apps/details?id=org.electerm.electerm)
 - [Apple App Store](https://apps.apple.com/us/app/electerm/id6792971552)
 - [华为应用市场](https://appgallery.huawei.com/app/detail?id=org.electerm.electerm)
 - [Microsoft Store](https://www.microsoft.com/store/apps/9NCN7272GTFF)
